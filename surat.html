@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About you</title>
+    <style>
+        /* Styles sama seperti sebelumnya */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            font-family: Arial, sans-serif;
+        }
+
+        .envelope {
+            position: relative;
+            width: 340px;
+            height: 240px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            /* Menambahkan margin-bottom untuk menurunkan posisi awal */
+            margin-bottom: 100px;
+        }
+
+        .envelope:hover {
+            transform: scale(1.05);
+        }
+
+        .front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 1s ease;
+            transform-origin: bottom;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .front.open {
+            transform: rotateX(180deg);
+        }
+
+        .instructions {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #ff4b6a;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .instructions.hide {
+            opacity: 0;
+        }
+
+        .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-sizing: border-box;
+            transform: translateY(0);
+            transition: transform 0.5s ease;
+            overflow: hidden;
+        }
+
+        .back.pull-out {
+            /* Mengubah transform agar lebih ke bawah */
+            transform: translateY(-20%);
+            height: 140%;
+        }
+
+        .letter-content {
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            padding: 15px;
+            /* Mengurangi margin-top agar konten lebih ke bawah */
+            margin-top: 5px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+        }
+
+        .letter-content.show {
+            opacity: 1;
+        }
+
+        .letter-content p {
+            margin: 12px 0;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .letter-content h2 {
+            color: #ff4b6a;
+            margin: 15px 0;
+            font-size: 22px;
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 10px auto;
+            object-fit: cover;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .heart {
+            color: red;
+            font-size: 32px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .container {
+            /* Mengurangi padding atas */
+            padding: 40px 0;
+            /* Menambahkan margin-top negatif untuk menurunkan posisi */
+            margin-top: -50px;
+        }
+
+        .letter-content p:first-of-type {
+            font-weight: 600;
+            color: #ff4b6a;
+            font-size: 18px;
+        }
+
+        .letter-content p:last-of-type {
+            font-style: italic;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="envelope">
+            <div class="front">
+                <div class="heart">❤️</div>
+            </div>
+            <div class="instructions">Pencet !!!!</div>
+            <div class="back">
+                <div class="letter-content">
+                    <img src="WhatsApp Image 2025-02-15 at 01.20.22_2372d1d6.jpg" alt="Profile Picture" class="profile-pic">
+                    <h2>Special Message</h2>
+                    <p>Dear Riska Aulia,</p>
+                    <p>You make my world brighter just by being in it.
+                        ~With love,satria hendra</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const envelope = document.querySelector('.envelope');
+        const front = document.querySelector('.front');
+        const back = document.querySelector('.back');
+        const content = document.querySelector('.letter-content');
+        const instructions = document.querySelector('.instructions');
+        let isOpen = false;
+
+        envelope.addEventListener('click', () => {
+            if (!isOpen) {
+                instructions.classList.add('hide');
+                front.classList.add('open');
+                setTimeout(() => {
+                    back.classList.add('pull-out');
+                    setTimeout(() => {
+                        content.classList.add('show');
+                    }, 500);
+                }, 500);
+                isOpen = true;
+            } else {
+                content.classList.remove('show');
+                setTimeout(() => {
+                    back.classList.remove('pull-out');
+                    setTimeout(() => {
+                        front.classList.remove('open');
+                        instructions.classList.remove('hide');
+                    }, 500);
+                }, 500);
+                isOpen = false;
+            }
+        });
+    </script>
+</body>
+</html>
